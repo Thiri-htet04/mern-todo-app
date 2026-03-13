@@ -3,6 +3,13 @@ pipeline {
 
   stages {
     stage('Build') {
+      agent {
+        docker {
+          image 'node:22-alpine'
+          args '-u root:root'
+          reuseNode true
+        }
+      }
       steps {
         sh '''
           set -e
@@ -22,6 +29,13 @@ pipeline {
     }
 
     stage('Test') {
+      agent {
+        docker {
+          image 'node:22-alpine'
+          args '-u root:root'
+          reuseNode true
+        }
+      }
       steps {
         sh '''
           set -e
