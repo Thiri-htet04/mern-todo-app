@@ -6,11 +6,19 @@ const Create = () => {
     const [task, setTask] = useState('');
 
     const createTask = () => {
-        axios.post('http://localhost:5000/add', { task: task.trim() })
+
+        const trimmedTask = task.trim();
+
+        if (!trimmedTask) {
+            console.log("Task is empty");
+            return;
+        }
+
+        axios.post('/add', { task: trimmedTask })
             .then(result => {
                 console.log(result.data);
-                window.location.reload();
                 setTask('');
+                window.location.reload();
             })
             .catch(err => console.log(err));
     };
